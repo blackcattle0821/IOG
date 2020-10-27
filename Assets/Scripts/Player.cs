@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -11,13 +12,13 @@ public class Player : MonoBehaviourPunCallbacks
     public float rotSpeed = 100.0f;
 
     public Camera PlayCam;
-    public Rigidbody rigid;
+   // public Rigidbody rigid;
     public Transform tr;
     //private PhotonView pv = null;
 
     float xRotation = 0f;
 
-    public Text nameText;
+   // public Text nameText;
 
     void Awake()
     {
@@ -29,6 +30,12 @@ public class Player : MonoBehaviourPunCallbacks
     {
         //마우스 커서 없앰.
         Cursor.lockState = CursorLockMode.Locked;
+
+        //내가 아닌 플레이어의 카메라 끊음
+        if (!photonView.IsMine)
+        {
+            Destroy(PlayCam);
+        }
     }
 
     //void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -36,11 +43,20 @@ public class Player : MonoBehaviourPunCallbacks
     //}
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Move();
-        RotMove();
+        //내 캐릭터면 움직임.
+        if (photonView.IsMine)
+        {
+            Move();
+            RotMove();
+        }
     }
+
+    private void Update()
+    {
+    }
+    //Addforce 이용한 move()
     //void Move()
     //{
 
@@ -61,6 +77,7 @@ public class Player : MonoBehaviourPunCallbacks
     //        rigid.AddForce(PlayCam.transform.right * moveSpeed * Time.deltaTime, ForceMode.Impulse);
     //    }
     //}
+
 
     void Move()
     {
@@ -83,13 +100,14 @@ public class Player : MonoBehaviourPunCallbacks
         }
     }
 
+    //시점 이동
     void RotMove()
     {
         float mouseX = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
         PlayCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         this.transform.Rotate(Vector3.up * mouseX);
