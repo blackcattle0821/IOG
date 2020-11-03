@@ -6,11 +6,18 @@ using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviourPunCallbacks
+public class Player : MonoBehaviourPunCallbacks, IPunObservable
 {
     public float moveSpeed = 5.0f;
     public float rotSpeed = 100.0f;
     public GameObject icon;
+    int weaponIndex = -1;
+    //public bool[] hasWeapons;
+    [SerializeField] GameObject[] weapons = null;
+    [SerializeField] GameObject equipWeapon;
+
+    bool sDown1;
+    bool sDown2;
 
     public Camera PlayCam;
 
@@ -20,11 +27,31 @@ public class Player : MonoBehaviourPunCallbacks
 
     float xRotation = 0f;
 
-   // public Text nameText;
+    //입력 횟수를 늘리던가 해야 됨. 수정 필요함.
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(sDown1);
+            stream.SendNext(sDown2);
+            stream.SendNext(weaponIndex);
 
+        }
+        else
+        {
+            sDown1 = (bool)stream.ReceiveNext();
+            sDown2 = (bool)stream.ReceiveNext();
+            weaponIndex = (int)stream.ReceiveNext();
+        }
+    }
+
+    //가장 먼저 무기를 초기화. 수정 필요함
     void Awake()
     {
-       
+        weapons[1].SetActive(false);
+        weapons[0].SetActive(false);
+        equipWeapon = weapons[0];
+        equipWeapon.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -36,7 +63,13 @@ public class Player : MonoBehaviourPunCallbacks
         //내가 아닌 플레이어의 카메라 끊음
         if (!photonView.IsMine)
         {
-            Destroy(PlayCam);
+            GetComponentInChildren<Camera>().enabled = false;
+            GetComponentInChildren<AudioListener>().enabled = false;
+            this.gameObject.layer = 8;
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                this.transform.GetChild(i).gameObject.layer = 10;
+            }
         }
 
         // 방에 들어올 때마다 랜덤하게 아이콘 색이 변함
@@ -44,9 +77,6 @@ public class Player : MonoBehaviourPunCallbacks
 
     }
 
-    //void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -56,34 +86,39 @@ public class Player : MonoBehaviourPunCallbacks
         {
             Move();
             RotMove();
+            photonView.RPC("Swap", RpcTarget.AllBuffered);
+            GetInput();
         }
     }
 
     private void Update()
     {
     }
-    //Addforce 이용한 move()
-    //void Move()
-    //{
 
-    //    if (Input.GetKey("w"))
-    //    {
-    //        rigid.AddForce(PlayCam.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
-    //    }
-    //    if (Input.GetKey("a"))
-    //    {
-    //        rigid.AddForce(-PlayCam.transform.right * moveSpeed * Time.deltaTime, ForceMode.Impulse);
-    //    }
-    //    if (Input.GetKey("s"))
-    //    {
-    //        rigid.AddForce(-PlayCam.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
-    //    }
-    //    if (Input.GetKey("d"))
-    //    {
-    //        rigid.AddForce(PlayCam.transform.right * moveSpeed * Time.deltaTime, ForceMode.Impulse);
-    //    }
-    //}
+    void GetInput()
+    {
+        sDown1 = Input.GetButtonDown("Swap1");
+        sDown2 = Input.GetButtonDown("Swap2");
+    }
 
+    //무기 교체 함수
+    [PunRPC]
+    void Swap()
+    {
+
+        if (sDown1) weaponIndex = 0;
+        if (sDown2) weaponIndex = 1;
+
+        if (sDown1 || sDown2)
+        {
+            if (equipWeapon != null)
+            {
+                equipWeapon.SetActive(false);
+            }
+            equipWeapon = weapons[weaponIndex];
+            equipWeapon.SetActive(true);
+        }
+    }
 
     void Move()
     {

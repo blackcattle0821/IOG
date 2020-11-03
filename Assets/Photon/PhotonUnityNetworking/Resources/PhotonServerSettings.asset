@@ -38,6 +38,11 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - BasicShoot
+  - Die
+  - SearchEnemy
+  - TakeDamage
+  - Swap
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

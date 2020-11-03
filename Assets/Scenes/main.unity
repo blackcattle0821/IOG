@@ -7987,6 +7987,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 776082110913174664, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1058562965193271726, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_RootOrder
@@ -8000,7 +8005,7 @@ PrefabInstance:
     - target: {fileID: 1920083259386254498, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1920083259386254652, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
@@ -8077,6 +8082,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.77
       objectReference: {fileID: 0}
+    - target: {fileID: 2760106602770557578, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2760106602770557581, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_Enabled
@@ -8101,6 +8111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AllowDynamicResolution
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855685157683026353, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4089389919584894135, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
