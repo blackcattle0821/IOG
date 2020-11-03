@@ -120,4 +120,10 @@ public class Player : MonoBehaviourPunCallbacks
         this.transform.Rotate(Vector3.up * mouseX);
     }
 
+    // 충돌
+    void OnCollisionEnter(Collision collision)
+    {
+
+    }
+
 }
