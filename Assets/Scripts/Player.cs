@@ -10,8 +10,10 @@ public class Player : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5.0f;
     public float rotSpeed = 100.0f;
+    public GameObject icon;
 
     public Camera PlayCam;
+
    // public Rigidbody rigid;
     public Transform tr;
     //private PhotonView pv = null;
@@ -36,6 +38,10 @@ public class Player : MonoBehaviourPunCallbacks
         {
             Destroy(PlayCam);
         }
+
+        // 방에 들어올 때마다 랜덤하게 아이콘 색이 변함
+        icon.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1.0f), Random.Range(0f, 1.0f), Random.Range(0f, 1.0f));
+
     }
 
     //void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -110,6 +116,7 @@ public class Player : MonoBehaviourPunCallbacks
         xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
         PlayCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+
         this.transform.Rotate(Vector3.up * mouseX);
     }
 

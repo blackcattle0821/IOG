@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class NameTag : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Text UserName;
+    [SerializeField] private Text UserName = null;
     public PhotonView PV;
 
     // Start is called before the first frame update

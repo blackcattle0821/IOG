@@ -16,15 +16,19 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        Screen.SetResolution(960, 540, false);
+       // Screen.SetResolution(960, 540, false);
     }
 
     private void Start()
     {
         PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.ConnectUsingSettings();
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();       //연결중을 if 안으로 집어넣음, 디폴트 글씨가 연결성공.
+            StatusText.text = "연결중...";
+        }
 
-        StatusText.text = "연결중...";
+        
     }
 
 
@@ -72,5 +76,11 @@ public class LoginManager : MonoBehaviourPunCallbacks
         //SceneManager.LoadScene("main");
         PhotonNetwork.LoadLevel("Main");
     }
+
+    public void LtoH()      //로그인 -> 도움말창
+    {
+        SceneManager.LoadScene("HelpScene");
+    }
+
 
 }
