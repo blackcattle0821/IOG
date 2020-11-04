@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class AsteroidMgr : MonoBehaviour
+public class AsteroidMgr : MonoBehaviourPunCallbacks
 {
-    [SerializeField] Asteroid asteroid;
+    [SerializeField] GameObject asteroid;
     [SerializeField] int numberOfAsteroidsOnAnAxis = 10; // 격자 간격
     [SerializeField] int gridSpacing = 100;
     // Start is called before the first frame update
@@ -38,9 +39,9 @@ public class AsteroidMgr : MonoBehaviour
     // 만들기
     void InstantiateAsteroid(int x, int y, int z)
     {
-        Instantiate(asteroid, new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
+        asteroid = PhotonNetwork.Instantiate("asteroid", new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
             transform.position.y + (y * gridSpacing) + AsteroidOffset(),
-            transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity, transform);
+            transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity);
     }
 
     float AsteroidOffset()

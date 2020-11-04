@@ -6287,7 +6287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facbaa31e41ac7f48a640f20c8326797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid: {fileID: 6349339434862549, guid: 6582183ff9d5a184b9779744dc811367, type: 3}
+  asteroid: {fileID: 0}
   numberOfAsteroidsOnAnAxis: 5
   gridSpacing: 25
 --- !u!4 &1595632219
@@ -7934,6 +7934,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 6349339434862546, guid: 6582183ff9d5a184b9779744dc811367, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6349339434862553, guid: 6582183ff9d5a184b9779744dc811367, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7977,6 +7981,11 @@ PrefabInstance:
     - target: {fileID: 6349339434862553, guid: 6582183ff9d5a184b9779744dc811367, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7641429192411988640, guid: 6582183ff9d5a184b9779744dc811367,
+        type: 3}
+      propertyPath: viewIdField
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6582183ff9d5a184b9779744dc811367, type: 3}
