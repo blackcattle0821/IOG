@@ -43,6 +43,7 @@ public class CoinMgr : MonoBehaviour
         coin = PhotonNetwork.Instantiate("coin", new Vector3(transform.position.x + (x * gridSpacing) + CoinOffset(),
             transform.position.y + (y * gridSpacing) + CoinOffset(),
             transform.position.z + (z * gridSpacing) + CoinOffset()), Quaternion.identity);
+        coin.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
     }
 

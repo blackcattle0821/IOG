@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviourPunCallbacks
 
     public Camera PlayCam;
     public Camera MissilePosition;
-    public GameObject MissilePrefab = null;
+    public GameObject MissilePrefab;
 
     // private float nextTimeToFire = 0f;
     void Update()
@@ -53,11 +53,12 @@ public class Weapon : MonoBehaviourPunCallbacks
     void BasicShoot()
     {
         RaycastHit hit = new RaycastHit();
+        Debug.DrawRay(PlayCam.transform.position, PlayCam.transform.forward*range, Color.red, 0.5f);
         if (Physics.Raycast(PlayCam.transform.position, PlayCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.collider.gameObject.layer);
+           // Debug.Log(hit.collider.gameObject.layer);
             Target target = hit.collider.GetComponent<Target>();
-            Debug.Log(target.health);
+           // Debug.Log(target.health);
             if (target != null)
             {
                 Debug.Log(hit.collider.name);
@@ -87,16 +88,17 @@ public class Weapon : MonoBehaviourPunCallbacks
     void shotgun()
     {
         Vector3 direction = PlayCam.transform.forward;
-        Vector3 spread = PlayCam.transform.position + PlayCam.transform.forward * 1000f;
+        Vector3 spread = PlayCam.transform.position + PlayCam.transform.forward;
         //spread로 퍼지는 범위 조절
         spread += PlayCam.transform.up * Random.Range(-3000f, 3000f);
         spread += PlayCam.transform.right * Random.Range(-3000f, 3000f);
         direction += spread.normalized * Random.Range(0f, 0.2f);
 
         RaycastHit hit = new RaycastHit();
-        if (Physics.Raycast(PlayCam.transform.position, direction, out hit, range))
+        Debug.DrawLine(PlayCam.transform.position, direction*100, Color.green, 0.3f);
+        if (Physics.Raycast(PlayCam.transform.position, direction*100, out hit, range))
         {
-            //Debug.DrawLine(PlayCam.transform.position, hit.point, Color.green);
+           
             //Debug.Log(hit.collider.gameObject.layer);
             Target target = hit.collider.GetComponent<Target>();
             //Debug.Log(target.health);
@@ -115,7 +117,8 @@ public class Weapon : MonoBehaviourPunCallbacks
     [PunRPC]
     void mShoot()
     {
-        GameObject MissileObject = PhotonNetwork.Instantiate(MissilePrefab.name, MissilePosition.transform.position, Quaternion.identity);
+        Quaternion q = Quaternion.LookRotation(new Vector3(90, 90, 90));
+        GameObject MissileObject = PhotonNetwork.Instantiate(MissilePrefab.name, MissilePosition.transform.position, q);
         MissileObject.transform.forward = PlayCam.transform.forward;
         //GameObject MissileObject = Instantiate(MissilePrefab);
 

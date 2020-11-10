@@ -40,13 +40,29 @@ public class AsteroidMgr : MonoBehaviourPunCallbacks
             }
         }
     }
-
+    
     //만들기
     void InstantiateAsteroid(int x, int y, int z)
     {
-        asteroid = PhotonNetwork.Instantiate("asteroid", new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
-            transform.position.y + (y * gridSpacing) + AsteroidOffset(),
-            transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity);
+        int r = UnityEngine.Random.Range(0, 3);
+        if (r == 0)
+        {
+            asteroid = PhotonNetwork.Instantiate("asteroid1", new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
+                transform.position.y + (y * gridSpacing) + AsteroidOffset(),
+                transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity);
+        }
+        else if (r == 1)
+        {
+            asteroid = PhotonNetwork.Instantiate("asteroid2", new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
+                transform.position.y + (y * gridSpacing) + AsteroidOffset(),
+                transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity);
+        }
+        else if (r == 2)
+        {
+            asteroid = PhotonNetwork.Instantiate("asteroid3", new Vector3(transform.position.x + (x * gridSpacing) + AsteroidOffset(),
+                transform.position.y + (y * gridSpacing) + AsteroidOffset(),
+                transform.position.z + (z * gridSpacing) + AsteroidOffset()), Quaternion.identity);
+        }
     }
 
     float AsteroidOffset()
