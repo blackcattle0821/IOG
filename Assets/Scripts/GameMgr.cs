@@ -16,7 +16,10 @@ public class GameMgr : MonoBehaviourPunCallbacks
     [SerializeField] public Slider HP;
     [SerializeField] public Image opt;
     [SerializeField] public Image upg;
+    //[SerializeField] public Text mineralText;// 자원UI......
+
     private GameObject user;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
         HP.value = 100;
         opt.gameObject.SetActive(false);        //옵션창, 업그레이드창 안보이게함
         upg.gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -41,6 +45,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             upg.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
+        //mineralText.text = string.Format("{0}",mineral); // UI연결......
     }
 
     void createPlayer()
@@ -72,5 +77,9 @@ public class GameMgr : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("GameoverScene");
         PhotonNetwork.LeaveRoom();
     }
+
+    
+    
+
 
 }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public float rotSpeed = 100.0f;
     public GameObject icon;
     int weaponIndex = -1;
+    public float mineral;
     //public bool[] hasWeapons;
     [SerializeField] GameObject[] weapons = null;
     [SerializeField] GameObject equipWeapon;
@@ -156,9 +157,29 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     // 충돌
-    void OnCollisionEnter(Collision collision)
-    {
+    //void OnCollisionEnter(Collider other)
+    //{
+    //    if (other.gameObjext.CompareTag("Asteroid"))
+    //    {
+    //        if (photonView.IsMine)
+    //        {
 
+    //        }
+    //    }
+    //}
+
+    // 자원획득
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            if (photonView.IsMine)
+            {
+                mineral++;
+            }
+        }
+        PhotonNetwork.Destroy(other.gameObject);
     }
+
 
 }

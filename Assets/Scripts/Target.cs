@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Target : MonoBehaviourPunCallbacks, IPunObservable
@@ -34,4 +35,5 @@ public class Target : MonoBehaviourPunCallbacks, IPunObservable
     {
         Destroy(gameObject);
     }
+
 }

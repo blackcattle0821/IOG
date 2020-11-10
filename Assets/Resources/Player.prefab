@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5738177071855702857}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotSpeed: 100
   icon: {fileID: 572967967911326626}
+  mineral: 0
   weapons:
   - {fileID: 8688376603991409239}
   - {fileID: 3338454817143402563}

@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    [SerializeField] float minScale = .8f;
-    [SerializeField] float maxScale = 1.2f;
-    [SerializeField] float rotationOffset = 100f;
+    [SerializeField] float AminScale = 3.0f;
+    [SerializeField] float AmaxScale = 3.4f;
+    [SerializeField] float ArotationOffset = 100f;
 
-    Transform myT;
-    Vector3 randomRotation;
+    Transform myTA;
+    Vector3 ArandomRotation;
 
     void Awake()
     {
-        myT = transform;
+        myTA = transform;
     }
 
 
@@ -23,16 +23,16 @@ public class Asteroid : MonoBehaviour
     {
         // 랜덤 사이즈
         Vector3 scale = Vector3.one;
-        scale.x = Random.Range(minScale, maxScale);
-        scale.y = Random.Range(minScale, maxScale);
-        scale.z = Random.Range(minScale, maxScale);
+        scale.x = Random.Range(AminScale, AmaxScale);
+        scale.y = Random.Range(AminScale, AmaxScale);
+        scale.z = Random.Range(AminScale, AmaxScale);
 
-        myT.localScale = scale;
+        myTA.localScale = scale;
 
         // 랜덤 rotation
-        randomRotation.x = Random.Range(-rotationOffset, rotationOffset);
-        randomRotation.y = Random.Range(-rotationOffset, rotationOffset);
-        randomRotation.z = Random.Range(-rotationOffset, rotationOffset);
+        ArandomRotation.x = Random.Range(-ArotationOffset, ArotationOffset);
+        ArandomRotation.y = Random.Range(-ArotationOffset, ArotationOffset);
+        ArandomRotation.z = Random.Range(-ArotationOffset, ArotationOffset);
 
 
     }
@@ -40,6 +40,8 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myT.Rotate(randomRotation * Time.deltaTime);
+        myTA.Rotate(ArandomRotation * Time.deltaTime);
     }
+
+   
 }
