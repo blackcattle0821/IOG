@@ -19,6 +19,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     bool sDown1;
     bool sDown2;
+    bool sDown3;
 
     public Camera PlayCam;
 
@@ -35,6 +36,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             stream.SendNext(sDown1);
             stream.SendNext(sDown2);
+            stream.SendNext(sDown3);
             stream.SendNext(weaponIndex);
 
         }
@@ -42,6 +44,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             sDown1 = (bool)stream.ReceiveNext();
             sDown2 = (bool)stream.ReceiveNext();
+            sDown3 = (bool)stream.ReceiveNext();
             weaponIndex = (int)stream.ReceiveNext();
         }
     }
@@ -49,6 +52,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //가장 먼저 무기를 초기화. 수정 필요함
     void Awake()
     {
+        weapons[2].SetActive(false);
         weapons[1].SetActive(false);
         weapons[0].SetActive(false);
         equipWeapon = weapons[0];
@@ -100,6 +104,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
+        sDown3 = Input.GetButtonDown("Swap3");
     }
 
     //무기 교체 함수
@@ -109,8 +114,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if (sDown1) weaponIndex = 0;
         if (sDown2) weaponIndex = 1;
+        if (sDown3) weaponIndex = 2;
 
-        if (sDown1 || sDown2)
+        if (sDown1 || sDown2 || sDown3)
         {
             if (equipWeapon != null)
             {
