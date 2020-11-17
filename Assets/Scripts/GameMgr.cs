@@ -51,7 +51,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     void createPlayer()
     {
         float pos = Random.Range(-20.0f, 20.0f);
-        user = PhotonNetwork.Instantiate(playerprefab.name, new Vector3(pos, 1.0f, pos), Quaternion.identity);
+        user = PhotonNetwork.Instantiate(playerprefab.name, new Vector3(pos, 1.0f, pos), Quaternion.identity) as GameObject;
     }
         
     public void opt_Continue()                 //옵션 계속하기 버튼
@@ -77,9 +77,5 @@ public class GameMgr : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("GameoverScene");
         PhotonNetwork.LeaveRoom();
     }
-
-    
-    
-
 
 }

@@ -8,13 +8,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviourPunCallbacks, IPunObservable
 {
+    //이동 속도
     public float moveSpeed = 5.0f;
+    //카메라 회전 속도
     public float rotSpeed = 100.0f;
     public GameObject icon;
     int weaponIndex = -1;
     public float mineral;
-    //public bool[] hasWeapons;
+    //무기를 가졌는지 저장
+    public bool[] hasWeapons;
+    //무기 저장
     [SerializeField] GameObject[] weapons = null;
+    //장비한 무기 저장
     [SerializeField] GameObject equipWeapon;
 
     bool sDown1;
@@ -52,6 +57,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //가장 먼저 무기를 초기화. 수정 필요함
     void Awake()
     {
+        hasWeapons[0] = true;
+        hasWeapons[1] = false;
+        hasWeapons[2] = false;
         weapons[2].SetActive(false);
         weapons[1].SetActive(false);
         weapons[0].SetActive(false);
@@ -64,13 +72,17 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         //마우스 커서 없앰.
         Cursor.lockState = CursorLockMode.Locked;
-
+        if (photonView.IsMine)
+        {
+            this.gameObject.GetComponent<Target>().health = 100;
+            this.gameObject.tag = "me";
+        }
         //내가 아닌 플레이어의 카메라 끊음
         if (!photonView.IsMine)
         {
             GetComponentInChildren<Camera>().enabled = false;
             GetComponentInChildren<AudioListener>().enabled = false;
-            this.gameObject.layer = 8;
+            this.gameObject.layer = 10;
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 this.transform.GetChild(i).gameObject.layer = 10;
@@ -111,19 +123,26 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void Swap()
     {
-
+        //1, 2, 3 누르면 인덱스 값 바뀜.
         if (sDown1) weaponIndex = 0;
         if (sDown2) weaponIndex = 1;
         if (sDown3) weaponIndex = 2;
 
+
+
         if (sDown1 || sDown2 || sDown3)
         {
-            if (equipWeapon != null)
+            //가진 무기의 인덱스에 true가 있으면 무기 구매한 것임. 교체해도 됨.
+            if (hasWeapons[weaponIndex] == true)
             {
-                equipWeapon.SetActive(false);
+                //교체 전에 원래 쓰던 것 비활성화하고 교체
+                if (equipWeapon != null)
+                {
+                    equipWeapon.SetActive(false);
+                }
+                equipWeapon = weapons[weaponIndex];
+                equipWeapon.SetActive(true);
             }
-            equipWeapon = weapons[weaponIndex];
-            equipWeapon.SetActive(true);
         }
     }
 
