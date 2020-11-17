@@ -314,8 +314,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: BuyHoming
         m_Mode: 1
         m_Arguments:
@@ -2289,8 +2288,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: Reload
         m_Mode: 1
         m_Arguments:
@@ -2873,8 +2871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: ShotgunUpgrade
         m_Mode: 1
         m_Arguments:
@@ -3922,8 +3919,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: mReload
         m_Mode: 1
         m_Arguments:
@@ -4893,8 +4889,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: HomingUpgrade
         m_Mode: 1
         m_Arguments:
@@ -5329,8 +5324,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: BasicUpgrade
         m_Mode: 1
         m_Arguments:
@@ -5423,8 +5417,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: SpeedUpgrade
         m_Mode: 1
         m_Arguments:
@@ -5894,8 +5887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: BuyShotgun
         m_Mode: 1
         m_Arguments:
@@ -5988,8 +5980,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: RangeUpgrade
         m_Mode: 1
         m_Arguments:
@@ -6224,8 +6215,13 @@ MonoBehaviour:
   playerprefab: {fileID: 1920083259386254498, guid: dc9461ccbf909004dae78f71504db36a,
     type: 3}
   HP: {fileID: 242995460}
+  HP_text: {fileID: 897023291}
   opt: {fileID: 166493186}
   upg: {fileID: 1490046972}
+  MineralText: {fileID: 1332348191}
+  UpgradeMineralText: {fileID: 2087325644}
+  BulletText: {fileID: 1819854419}
+  myPlayer: {fileID: 0}
 --- !u!4 &1491719554
 Transform:
   m_ObjectHideFlags: 0
@@ -6641,8 +6637,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: HpUpgrade
         m_Mode: 1
         m_Arguments:
@@ -7243,7 +7238,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0 / 0
+  m_Text: 0
 --- !u!222 &1819854420
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7899,8 +7894,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
-          type: 3}
+      - m_Target: {fileID: 2760106602351963049}
         m_MethodName: Reload
         m_Mode: 1
         m_Arguments:
@@ -8258,6 +8252,91 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShipUpPrice
+      value: 
+      objectReference: {fileID: 81196844}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BasicUpPrice
+      value: 
+      objectReference: {fileID: 605235793}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: HomUpPrice
+      value: 
+      objectReference: {fileID: 1679645088}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShutUpPrice
+      value: 
+      objectReference: {fileID: 1056582474}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShotUpPrice
+      value: 
+      objectReference: {fileID: 1056582474}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShipUpPriceText
+      value: 
+      objectReference: {fileID: 81196844}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BasicUpPriceText
+      value: 
+      objectReference: {fileID: 605235793}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: HomUpPriceText
+      value: 
+      objectReference: {fileID: 1679645088}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShotUpPriceText
+      value: 
+      objectReference: {fileID: 1056582474}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BuyHomGunText
+      value: 
+      objectReference: {fileID: 1007515602}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BuyshotGunText
+      value: 
+      objectReference: {fileID: 280816663}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BuymissileText
+      value: 
+      objectReference: {fileID: 1436482022}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BuyShotGunText
+      value: 
+      objectReference: {fileID: 280816663}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: BasicLevelText
+      value: 
+      objectReference: {fileID: 2074167394}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: HomLevelText
+      value: 
+      objectReference: {fileID: 1301393092}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: ShotLevelText
+      value: 
+      objectReference: {fileID: 1696717048}
     - target: {fileID: -3125095255361590622, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_IsTrigger
@@ -8447,3 +8526,15 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 2760106602351963046}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2760106602351963049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2760106602351963046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea50aa27c4a437842a28fc1e417e8e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

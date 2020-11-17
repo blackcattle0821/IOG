@@ -13,14 +13,17 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //카메라 회전 속도
     public float rotSpeed = 100.0f;
     public GameObject icon;
+    public float health;
     int weaponIndex = -1;
     public float mineral;
+    public float score;
     //무기를 가졌는지 저장
     public bool[] hasWeapons;
     //무기 저장
     [SerializeField] GameObject[] weapons = null;
     //장비한 무기 저장
     [SerializeField] GameObject equipWeapon;
+    public GameObject enemy;
 
     bool sDown1;
     bool sDown2;
@@ -74,16 +77,18 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         Cursor.lockState = CursorLockMode.Locked;
         if (photonView.IsMine)
         {
-            this.gameObject.GetComponent<Target>().health = 100;
+            health = 100;
             this.gameObject.tag = "me";
         }
         //내가 아닌 플레이어의 카메라 끊음
         if (!photonView.IsMine)
         {
-            GetComponentInChildren<Camera>().enabled = false;
+            enemy = GameObject.FindGameObjectWithTag("Player");
+            enemy.GetComponent<Player>().PlayCam.enabled = false;
+            enemy.transform.GetChild(5).GetComponent<Camera>().enabled = false;
             GetComponentInChildren<AudioListener>().enabled = false;
             this.gameObject.layer = 10;
-            for (int i = 0; i < this.transform.childCount; i++)
+            for (int i = 0; i < this.transform.childCount - 2; i++)
             {
                 this.transform.GetChild(i).gameObject.layer = 10;
             }
@@ -181,17 +186,17 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         this.transform.Rotate(Vector3.up * mouseX);
     }
 
-    // 충돌
-    //void OnCollisionEnter(Collider other)
-    //{
-    //    if (other.gameObjext.CompareTag("Asteroid"))
-    //    {
-    //        if (photonView.IsMine)
-    //        {
-
-    //        }
-    //    }
-    //}
+    
+    void OnCollisionEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Asteroid"))
+        {
+           if (photonView.IsMine)
+            {
+                this.gameObject.GetComponent<Target>().health -= 10;
+            }
+        }
+    }
 
     // 자원획득
     void OnTriggerEnter(Collider other)
@@ -200,7 +205,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (photonView.IsMine)
             {
-                mineral++;
+                mineral += 50;
+                score += 50;
             }
         }
         PhotonNetwork.Destroy(other.gameObject);

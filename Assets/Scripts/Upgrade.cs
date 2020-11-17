@@ -22,6 +22,19 @@ public class Upgrade : MonoBehaviourPunCallbacks
     public float HomingPrice;
     //샷건 업그레이드 비용
     public float ShotgunPrice;
+    int BasicLv = 1;
+    int HomLv = 1;
+    int ShotLv = 1;
+
+    public Text ShipUpPriceText;
+    public Text BasicUpPriceText;
+    public Text BasicLevelText;
+    public Text HomUpPriceText;
+    public Text HomLevelText;
+    public Text ShotUpPriceText;
+    public Text ShotLevelText;
+    public Text BuyHomGunText;
+    public Text BuyShotGunText;
 
     private void Start()
     {
@@ -32,17 +45,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
         ShotgunPrice = 100f;
     }
 
-    //private void Update()
-    //{
-    //    playMoney();
-    //}
-
-
-    //public void playMoney() //머니라는 변수와 각 플레이어의 미네랄 동기화
-    //{
-    //    myPlayer = GameObject.FindGameObjectWithTag("me");
-    //    money = myPlayer.GetComponent<Player>().mineral;
-    //}
 
     //우주선 내구도 업그레이드
     public void HpUpgrade()
@@ -61,6 +63,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 myPlayer.GetComponent<Target>().health = myPlayer.GetComponent<Target>().health * 1.05f;
                 //구매비용도 상승
                 myPlayer.GetComponent<Upgrade>().SpaceShipPrice += 50f;
+                ShipUpPriceText.text = myPlayer.GetComponent<Upgrade>().SpaceShipPrice.ToString();
             }
 
         }
@@ -78,6 +81,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
                 myPlayer.GetComponent<Player>().moveSpeed = myPlayer.GetComponent<Player>().moveSpeed * 1.05f;
                 myPlayer.GetComponent<Upgrade>().SpaceShipPrice += 50f;
+                ShipUpPriceText.text = myPlayer.GetComponent<Upgrade>().SpaceShipPrice.ToString();
             }
 
         }
@@ -95,6 +99,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
                 myPlayer.GetComponentInChildren<Weapon>().range = myPlayer.GetComponentInChildren<Weapon>().range * 1.05f;
                 myPlayer.GetComponent<Upgrade>().SpaceShipPrice += 50f;
+                ShipUpPriceText.text = myPlayer.GetComponent<Upgrade>().SpaceShipPrice.ToString();
             }
 
         }
@@ -112,6 +117,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().WeaponPrice;
                 //무기를 산 것으로 표기
                 myPlayer.GetComponent<Player>().hasWeapons[1] = true;
+                BuyHomGunText.text = "구매완료";
             }
         }
     }
@@ -126,6 +132,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
             {
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().WeaponPrice;
                 myPlayer.GetComponent<Player>().hasWeapons[2] = true;
+                BuyShotGunText.text = "구매완료";
             }
         }
     }
@@ -146,6 +153,9 @@ public class Upgrade : MonoBehaviourPunCallbacks
                     //공격력 5% 상승
                     myPlayer.GetComponentInChildren<Weapon>().Damage = myPlayer.GetComponentInChildren<Weapon>().Damage * 1.05f;
                     myPlayer.GetComponent<Upgrade>().BasicPrice += 50f;
+                    BasicUpPriceText.text = myPlayer.GetComponent<Upgrade>().BasicPrice.ToString();
+                    BasicLv++;
+                    BasicLevelText.text = "LV. " + BasicLv.ToString();
                 }
             }
 
@@ -166,6 +176,9 @@ public class Upgrade : MonoBehaviourPunCallbacks
                     myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().HomingPrice;
                     myPlayer.GetComponentInChildren<Weapon>().Damage = myPlayer.GetComponentInChildren<Weapon>().Damage * 1.05f;
                     myPlayer.GetComponent<Upgrade>().HomingPrice += 50f;
+                    HomUpPriceText.text = myPlayer.GetComponent<Upgrade>().HomingPrice.ToString();
+                    HomLv++;
+                    HomLevelText.text = "LV. " + HomLv.ToString();
                 }
             }
 
@@ -186,6 +199,9 @@ public class Upgrade : MonoBehaviourPunCallbacks
                     myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().ShotgunPrice;
                     myPlayer.GetComponentInChildren<Weapon>().Damage = myPlayer.GetComponentInChildren<Weapon>().Damage * 1.05f;
                     myPlayer.GetComponent<Upgrade>().ShotgunPrice += 50f;
+                    ShotUpPriceText.text = myPlayer.GetComponent<Upgrade>().ShotgunPrice.ToString();
+                    BasicLv++;
+                    ShotLevelText.text = "LV. " + ShotLv.ToString();
                 }
             }
 
@@ -193,7 +209,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
     }
 
     //무기 재장전
-    public void Reload()
+    public void Reload()                //총알 무기별로 분리해서 처리하는게 낫지 않을까. 지금은 졸리니 나중에 해보기로 함.
     {
         if (photonView.IsMine)
         {
@@ -202,13 +218,13 @@ public class Upgrade : MonoBehaviourPunCallbacks
             //호밍이고 미네랄 충분하면
             if (myPlayer.GetComponentInChildren<Weapon>().value == 1 && myPlayer.GetComponent<Player>().mineral >= 100f)
             {
-                myPlayer.GetComponent<Player>().mineral -= 100f;
+                myPlayer.GetComponent<Player>().mineral -= 30f;
                 myPlayer.GetComponentInChildren<Weapon>().ammo = 50f;
             }
             //샷건이고 미네랄 충분하면
             else if (myPlayer.GetComponentInChildren<Weapon>().value == 2 && myPlayer.GetComponent<Player>().mineral >= 100f)
             {
-                myPlayer.GetComponent<Player>().mineral -= 100f;
+                myPlayer.GetComponent<Player>().mineral -= 30f;
                 Debug.Log(myPlayer.GetComponent<Player>().mineral);
                 myPlayer.GetComponentInChildren<Weapon>().ammo = 50f;
             }
@@ -221,13 +237,13 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.transform.GetChild(4).GetChild(3));
+            Debug.Log(myPlayer.transform.GetChild(2).GetChild(3));
             Debug.Log(myPlayer.GetComponent<Player>().mineral);
             if (myPlayer.GetComponent<Player>().mineral >= 50f)
             {
                 myPlayer.GetComponent<Player>().mineral -= 50f;
                 //플레이어의 5번째 하위 오브젝트의 3번째 하위 오브젝트. 즉, 미사일 오브젝트의 weapon 컴포넌트의 mAmmo를 2로 만듦.
-                myPlayer.transform.GetChild(4).GetChild(3).GetComponent<Weapon>().mAmmo = 2f;
+                myPlayer.transform.GetChild(2).GetChild(3).GetComponent<Weapon>().mAmmo = 2f;
             }
         }
     }

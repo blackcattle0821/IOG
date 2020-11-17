@@ -14,8 +14,13 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject playerprefab = null;
     [SerializeField] public Slider HP;
+    [SerializeField] public Text HP_text;
     [SerializeField] public Image opt;
     [SerializeField] public Image upg;
+    public Text MineralText;
+    public Text UpgradeMineralText;
+    public Text BulletText;
+    public GameObject myPlayer;
     //[SerializeField] public Text mineralText;// 자원UI......
 
     private GameObject user;
@@ -26,6 +31,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     {
         createPlayer();
         HP.value = 100;
+        HP_text.text = HP.value.ToString();
         opt.gameObject.SetActive(false);        //옵션창, 업그레이드창 안보이게함
         upg.gameObject.SetActive(false);
         
@@ -45,7 +51,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             upg.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
-        //mineralText.text = string.Format("{0}",mineral); // UI연결......
+        UpdateScore();
     }
 
     void createPlayer()
@@ -76,6 +82,14 @@ public class GameMgr : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene("GameoverScene");
         PhotonNetwork.LeaveRoom();
+    }
+
+    void UpdateScore()                          //점수 획득하면 UI에 표시하기.
+    {
+        myPlayer = GameObject.FindGameObjectWithTag("me");
+        MineralText.text = myPlayer.GetComponent<Player>().mineral.ToString();
+        UpgradeMineralText.text = myPlayer.GetComponent<Player>().mineral.ToString();
+        //BulletText.text = myPlayer.GetComponent<Weapon>().ammo.ToString();   하는중..
     }
 
 }
