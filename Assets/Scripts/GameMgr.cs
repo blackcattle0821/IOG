@@ -17,10 +17,11 @@ public class GameMgr : MonoBehaviourPunCallbacks
     [SerializeField] public Text HP_text;
     [SerializeField] public Image opt;
     [SerializeField] public Image upg;
+    [SerializeField] public Image scr;
     public Text MineralText;
     public Text UpgradeMineralText;
     public Text BulletText;
-    public GameObject myPlayer;
+    public GameObject myPlayer = null;
     //[SerializeField] public Text mineralText;// 자원UI......
 
     private GameObject user;
@@ -34,7 +35,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
         HP_text.text = HP.value.ToString();
         opt.gameObject.SetActive(false);        //옵션창, 업그레이드창 안보이게함
         upg.gameObject.SetActive(false);
-        
+        scr.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame

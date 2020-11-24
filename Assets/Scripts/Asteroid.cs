@@ -15,6 +15,7 @@ public class Asteroid : MonoBehaviour
     void Awake()
     {
         myTA = transform;
+        this.gameObject.layer = 10;
     }
 
 

@@ -110,10 +110,25 @@ MonoBehaviour:
   Damage: 5
   range: 100
   value: 1
+  ammo: 50
+  mAmmo: 0
+  FireRate: 0.7
   m_layerMask:
     serializedVersion: 2
     m_Bits: 1024
   PlayCam: {fileID: 0}
+  MissilePosition: {fileID: 0}
+  MissilePrefab: {fileID: 7930025159180471622, guid: d196599c6a4da7c46bb785392b5738a6,
+    type: 3}
+  BasicMuzzleFlash: {fileID: 0}
+  BasicHitEffect: {fileID: 1570927096764274, guid: 2061a589f3e4829469f4d122b7a93e27,
+    type: 3}
+  HomingMuzzleFlash: {fileID: 0}
+  HomingHitEffect: {fileID: 1000011128802252, guid: b7967c4cfc7d3744d8d36f16aca951e8,
+    type: 3}
+  ShotgunMuzzleFlash: {fileID: 0}
+  ShotgunHitEffect: {fileID: 1150934714579380, guid: dec9858e686b13f4e93b384e119345c7,
+    type: 3}
 --- !u!114 &5012208196299224843
 MonoBehaviour:
   m_ObjectHideFlags: 0

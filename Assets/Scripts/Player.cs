@@ -24,12 +24,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //장비한 무기 저장
     [SerializeField] GameObject equipWeapon;
     public GameObject enemy;
+    //메인씬 게임매니저 찾기위한 변수
+    public GameObject gm;
 
     bool sDown1;
     bool sDown2;
     bool sDown3;
 
     public Camera PlayCam;
+    public GameObject hitScreen;
 
    // public Rigidbody rigid;
     public Transform tr;
@@ -68,6 +71,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         weapons[0].SetActive(false);
         equipWeapon = weapons[0];
         equipWeapon.SetActive(true);
+        
     }
 
     // Start is called before the first frame update
@@ -79,17 +83,27 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             health = 100;
             this.gameObject.tag = "me";
+            this.gameObject.layer = 12;
+            for (int i = 0; i < this.transform.childCount - 3; i++)
+            {
+                this.transform.GetChild(i).gameObject.layer = 12;
+            }
+            //게임매니저에 걸어둔 태그
+            gm = GameObject.FindGameObjectWithTag("GameController");
         }
-        //내가 아닌 플레이어의 카메라 끊음
+        //내가 아닌 플레이어. 카메라 끊고 태그, 레이어등 변경
         if (!photonView.IsMine)
         {
             enemy = GameObject.FindGameObjectWithTag("Player");
             enemy.GetComponent<Player>().PlayCam.enabled = false;
-            enemy.transform.GetChild(5).GetComponent<Camera>().enabled = false;
+            enemy.transform.GetChild(6).GetComponent<Camera>().enabled = false;
+            //enemy.transform.GetChild(2).GetChild(0).gameObject.layer = 10;
             GetComponentInChildren<AudioListener>().enabled = false;
+            this.gameObject.tag = "Player";
             this.gameObject.layer = 10;
-            for (int i = 0; i < this.transform.childCount - 2; i++)
+            for (int i = 0; i < this.transform.childCount - 3; i++)
             {
+                this.transform.GetChild(i).gameObject.tag = "Player";
                 this.transform.GetChild(i).gameObject.layer = 10;
             }
         }
@@ -108,13 +122,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             Move();
             RotMove();
-            photonView.RPC("Swap", RpcTarget.AllBuffered);
+            
             GetInput();
+            //hitScreen.SetActive(false);
         }
     }
 
     private void Update()
     {
+        photonView.RPC("Swap", RpcTarget.AllBuffered);
     }
 
     void GetInput()
@@ -187,13 +203,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     
-    void OnCollisionEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Asteroid"))
         {
            if (photonView.IsMine)
             {
                 this.gameObject.GetComponent<Target>().health -= 10;
+                StartCoroutine(ShowHitScreen());
             }
         }
     }
@@ -212,5 +229,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.Destroy(other.gameObject);
     }
 
+    IEnumerator ShowHitScreen()
+    {
+        gm.GetComponent<GameMgr>().scr.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        gm.GetComponent<GameMgr>().scr.gameObject.SetActive(false);
+    }
 
 }
