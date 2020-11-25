@@ -284,6 +284,9 @@ MonoBehaviour:
   ShotLevelText: {fileID: 0}
   BuyHomGunText: {fileID: 0}
   BuyShotGunText: {fileID: 0}
+  HP: {fileID: 0}
+  gun1: {fileID: 0}
+  gun2: {fileID: 0}
 --- !u!1 &1920083259386254500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1199,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9032296051308666723, guid: 6160f88cfe8d2054999aee9aeef56ee7,
+        type: 3}
+      propertyPath: m_TagString
+      value: gun
+      objectReference: {fileID: 0}
     - target: {fileID: 9032296051308666726, guid: 6160f88cfe8d2054999aee9aeef56ee7,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1246,6 +1254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663760750793823228, guid: 9e588af7a325adf41810629794594526,
+        type: 3}
+      propertyPath: m_TagString
+      value: gun
       objectReference: {fileID: 0}
     - target: {fileID: 4663760750793823231, guid: 9e588af7a325adf41810629794594526,
         type: 3}
@@ -1662,6 +1675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798261717458493177, guid: 51cf11f5b4974fe42ba6e4dcbc463355,
+        type: 3}
+      propertyPath: m_TagString
+      value: gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51cf11f5b4974fe42ba6e4dcbc463355, type: 3}

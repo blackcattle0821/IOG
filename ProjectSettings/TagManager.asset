@@ -8,6 +8,7 @@ TagManager:
   - Asteroid
   - Coin
   - me
+  - gun
   layers:
   - Default
   - TransparentFX

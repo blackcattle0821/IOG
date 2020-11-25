@@ -35,6 +35,9 @@ public class Upgrade : MonoBehaviourPunCallbacks
     public Text ShotLevelText;
     public Text BuyHomGunText;
     public Text BuyShotGunText;
+    public Slider HP;
+    public Image gun1;
+    public Image gun2;
 
     private void Start()
     {
@@ -60,7 +63,9 @@ public class Upgrade : MonoBehaviourPunCallbacks
             {
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
                 //HP가 5%상승
-                myPlayer.GetComponent<Target>().health = myPlayer.GetComponent<Target>().health * 1.05f;
+                myPlayer.GetComponent<Target>().health = myPlayer.GetComponent<Target>().health + 10f;      //+10으로 바꿈
+                HP.maxValue += 10;
+                HP.value += 10;
                 //구매비용도 상승
                 myPlayer.GetComponent<Upgrade>().SpaceShipPrice += 50f;
                 ShipUpPriceText.text = myPlayer.GetComponent<Upgrade>().SpaceShipPrice.ToString();
@@ -118,6 +123,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 //무기를 산 것으로 표기
                 myPlayer.GetComponent<Player>().hasWeapons[1] = true;
                 BuyHomGunText.text = "구매완료";
+                gun1.gameObject.SetActive(true);
             }
         }
     }
@@ -133,6 +139,7 @@ public class Upgrade : MonoBehaviourPunCallbacks
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().WeaponPrice;
                 myPlayer.GetComponent<Player>().hasWeapons[2] = true;
                 BuyShotGunText.text = "구매완료";
+                gun2.gameObject.SetActive(true);
             }
         }
     }

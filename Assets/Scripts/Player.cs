@@ -20,9 +20,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //무기를 가졌는지 저장
     public bool[] hasWeapons;
     //무기 저장
-    [SerializeField] GameObject[] weapons = null;
+    [SerializeField] public GameObject[] weapons = null;
     //장비한 무기 저장
-    [SerializeField] GameObject equipWeapon;
+    [SerializeField] public GameObject equipWeapon;
     public GameObject enemy;
     //메인씬 게임매니저 찾기위한 변수
     public GameObject gm;

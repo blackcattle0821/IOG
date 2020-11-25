@@ -6224,6 +6224,10 @@ MonoBehaviour:
   UpgradeMineralText: {fileID: 2087325644}
   BulletText: {fileID: 1819854419}
   myPlayer: {fileID: 0}
+  myGun: {fileID: 0}
+  gun1: {fileID: 1158292476}
+  gun2: {fileID: 1290940091}
+  HighscoreText: {fileID: 2095633132}
 --- !u!4 &1491719554
 Transform:
   m_ObjectHideFlags: 0
@@ -8063,6 +8067,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087325642}
   m_CullTransparentMesh: 0
+--- !u!1 &2095633130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2095633131}
+  - component: {fileID: 2095633133}
+  - component: {fileID: 2095633132}
+  m_Layer: 5
+  m_Name: HighScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2095633131
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095633130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2118685584}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143, y: -143}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2095633132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095633130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b992de0237dfd5242857216dca00bce4, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &2095633133
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095633130}
+  m_CullTransparentMesh: 0
 --- !u!1 &2118685580
 GameObject:
   m_ObjectHideFlags: 0
@@ -8162,6 +8244,7 @@ RectTransform:
   - {fileID: 166493185}
   - {fileID: 892680174}
   - {fileID: 956549118}
+  - {fileID: 2095633131}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8340,6 +8423,21 @@ PrefabInstance:
       propertyPath: ShotLevelText
       value: 
       objectReference: {fileID: 1696717048}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: HP
+      value: 
+      objectReference: {fileID: 242995460}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: gun1
+      value: 
+      objectReference: {fileID: 1158292476}
+    - target: {fileID: -8911670241002520870, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: gun2
+      value: 
+      objectReference: {fileID: 1290940091}
     - target: {fileID: -3125095255361590622, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_IsTrigger
@@ -8358,7 +8456,7 @@ PrefabInstance:
     - target: {fileID: 1058562965193271726, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1920083259386254498, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
@@ -8426,6 +8524,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1920083259386254654, guid: dc9461ccbf909004dae78f71504db36a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920083259386254655, guid: dc9461ccbf909004dae78f71504db36a,
         type: 3}
       propertyPath: m_RootOrder
       value: 4
