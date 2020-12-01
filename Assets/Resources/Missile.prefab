@@ -45,15 +45,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f9bcd554a939b46a047f05fdb2fa4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  range: 0
-  value: 0
+  Damage: 50
+  range: 100
+  value: 3
+  ammo: 0
+  mAmmo: 5
+  FireRate: 2
   m_layerMask:
     serializedVersion: 2
     m_Bits: 0
   PlayCam: {fileID: 0}
   MissilePosition: {fileID: 0}
-  MissilePrefab: {fileID: 0}
+  MissilePrefab: {fileID: 3366270382601007057}
+  BasicMuzzleFlash: {fileID: 0}
+  BasicHitEffect: {fileID: 0}
+  HomingMuzzleFlash: {fileID: 0}
+  HomingHitEffect: {fileID: 0}
+  ShotgunMuzzleFlash: {fileID: 0}
+  ShotgunHitEffect: {fileID: 0}
+  AsteroidEffect: {fileID: 0}
 --- !u!114 &5917486712963649774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,27 +102,27 @@ PrefabInstance:
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.66
       objectReference: {fileID: 0}
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,
         type: 3}
@@ -146,6 +156,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d196599c6a4da7c46bb785392b5738a6, type: 3}
+--- !u!1 &3366270382601007057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7930025159180471622, guid: d196599c6a4da7c46bb785392b5738a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4664179786854507159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2646604133930640271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7206004310948249880, guid: d196599c6a4da7c46bb785392b5738a6,

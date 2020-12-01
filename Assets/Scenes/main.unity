@@ -1866,6 +1866,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0751491d576a4434896da3b542e7e767, type: 3}
+--- !u!1 &337204024 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3822202790034472316, guid: 0751491d576a4434896da3b542e7e767,
+    type: 3}
+  m_PrefabInstance: {fileID: 337204023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &381830320
 GameObject:
   m_ObjectHideFlags: 0
@@ -7157,7 +7163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745b1cdad6dba4c4f9e070718cf5aae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: {fileID: 0}
+  coin: {fileID: 337204024}
   numberOfcoinsOnAnAxis: 7
   gridSpacing: 25
 --- !u!4 &1783003444

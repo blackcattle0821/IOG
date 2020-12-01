@@ -27,6 +27,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //메인씬 게임매니저 찾기위한 변수
     public GameObject gm;
 
+    public Collider col;
+
     bool sDown1;
     bool sDown2;
     bool sDown3;
@@ -34,29 +36,36 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public Camera PlayCam;
     public GameObject hitScreen;
 
-   // public Rigidbody rigid;
+    public Rigidbody rigid;
     public Transform tr;
     //private PhotonView pv = null;
 
     float xRotation = 0f;
 
+    private Vector3 currPos;
+    private Quaternion currRot;
     //입력 횟수를 늘리던가 해야 됨. 수정 필요함.
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(sDown1);
-            stream.SendNext(sDown2);
-            stream.SendNext(sDown3);
-            stream.SendNext(weaponIndex);
+        //    stream.SendNext(sDown1);
+        //    stream.SendNext(sDown2);
+        //    stream.SendNext(sDown3);
+        //    stream.SendNext(weaponIndex);
+            stream.SendNext(tr.position);
+            stream.SendNext(tr.rotation);
 
         }
         else
         {
-            sDown1 = (bool)stream.ReceiveNext();
-            sDown2 = (bool)stream.ReceiveNext();
-            sDown3 = (bool)stream.ReceiveNext();
-            weaponIndex = (int)stream.ReceiveNext();
+            //sDown1 = (bool)stream.ReceiveNext();
+            //sDown2 = (bool)stream.ReceiveNext();
+            //sDown3 = (bool)stream.ReceiveNext();
+            //weaponIndex = (int)stream.ReceiveNext();
+
+            currPos = (Vector3)stream.ReceiveNext();
+            currRot = (Quaternion)stream.ReceiveNext();
         }
     }
 
@@ -84,10 +93,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             health = 100;
             this.gameObject.tag = "me";
             this.gameObject.layer = 12;
-            for (int i = 0; i < this.transform.childCount - 3; i++)
+            for (int i = 0; i < this.transform.childCount - 4; i++)
             {
+                this.transform.GetChild(i).gameObject.tag = "me";
                 this.transform.GetChild(i).gameObject.layer = 12;
             }
+            //for (int i = 0; i < this.transform.GetChild(3).childCount; i++)
+            //{
+            //    this.transform.GetChild(3).GetChild(i).gameObject.tag = "me";
+            //}
             //게임매니저에 걸어둔 태그
             gm = GameObject.FindGameObjectWithTag("GameController");
         }
@@ -115,21 +129,22 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    //void FixedUpdate()
+    //{
+
+    //}
+
+    private void Update()
     {
         //내 캐릭터면 움직임.
         if (photonView.IsMine)
         {
             Move();
             RotMove();
-            
+
             GetInput();
             //hitScreen.SetActive(false);
         }
-    }
-
-    private void Update()
-    {
         photonView.RPC("Swap", RpcTarget.AllBuffered);
     }
 
@@ -169,37 +184,68 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     void Move()
     {
-
-        if (Input.GetKey("w"))
+        if (photonView.IsMine)
         {
-            tr.Translate(PlayCam.transform.forward * moveSpeed * Time.deltaTime, Space.World);
+            if (Input.GetKey("w"))
+            {
+                tr.Translate(PlayCam.transform.forward * moveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("a"))
+            {
+                tr.Translate(-PlayCam.transform.right * moveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("s"))
+            {
+                tr.Translate(-PlayCam.transform.forward * moveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("d"))
+            {
+                tr.Translate(PlayCam.transform.right * moveSpeed * Time.deltaTime, Space.World);
+            }
         }
-        if (Input.GetKey("a"))
+        else
         {
-            tr.Translate(-PlayCam.transform.right * moveSpeed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey("s"))
-        {
-            tr.Translate(-PlayCam.transform.forward * moveSpeed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey("d"))
-        {
-            tr.Translate(PlayCam.transform.right * moveSpeed * Time.deltaTime, Space.World);
+            if ((tr.position - currPos).sqrMagnitude >= 10.0f * 10.0f)
+            {
+                tr.position = currPos;
+                tr.rotation = currRot;
+            }
+            else
+            {
+                tr.position = Vector3.Lerp(tr.position, currPos, Time.deltaTime * 10.0f);
+                tr.rotation = Quaternion.Slerp(tr.rotation, currRot, Time.deltaTime * 10.0f);
+            }
         }
     }
 
     //시점 이동
     void RotMove()
     {
-        float mouseX = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
+        if (photonView.IsMine)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
-        PlayCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            PlayCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
-        this.transform.Rotate(Vector3.up * mouseX);
+            this.transform.Rotate(Vector3.up * mouseX);
+        }
+        else
+        {
+            if ((tr.position - currPos).sqrMagnitude >= 10.0f * 10.0f)
+            {
+                tr.position = currPos;
+                tr.rotation = currRot;
+            }
+            else
+            {
+                tr.position = Vector3.Lerp(tr.position, currPos, Time.deltaTime * 10.0f);
+                tr.rotation = Quaternion.Slerp(tr.rotation, currRot, Time.deltaTime * 10.0f);
+            }
+        }
     }
 
     
@@ -213,20 +259,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 StartCoroutine(ShowHitScreen());
             }
         }
-    }
-
-    // 자원획득
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Coin"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (photonView.IsMine)
-            {
-                mineral += 50;
-                score += 50;
-            }
+            rigid.isKinematic = true;
         }
-        PhotonNetwork.Destroy(other.gameObject);
     }
 
     IEnumerator ShowHitScreen()

@@ -80,7 +80,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.GetComponent<Player>().mineral);
             if (myPlayer.GetComponent<Player>().mineral >= myPlayer.GetComponent<Upgrade>().SpaceShipPrice)
             {
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
@@ -98,7 +97,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.GetComponent<Player>().mineral);
             if (myPlayer.GetComponent<Player>().mineral >= myPlayer.GetComponent<Upgrade>().SpaceShipPrice)
             {
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
@@ -150,7 +148,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.GetComponent<Player>().mineral);
             //미네랄 >= 기본무기 업그레이드 비용일때 기본무기가 확실하면 진행.
             if (myPlayer.GetComponent<Player>().mineral >= myPlayer.GetComponent<Upgrade>().BasicPrice)
             {
@@ -175,7 +172,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.GetComponent<Player>().mineral);
             if (myPlayer.GetComponent<Player>().mineral >= myPlayer.GetComponent<Upgrade>().HomingPrice)
             {
                 if (myPlayer.GetComponentInChildren<Weapon>().value == 1)
@@ -232,7 +228,6 @@ public class Upgrade : MonoBehaviourPunCallbacks
             else if (myPlayer.GetComponentInChildren<Weapon>().value == 2 && myPlayer.GetComponent<Player>().mineral >= 100f)
             {
                 myPlayer.GetComponent<Player>().mineral -= 30f;
-                Debug.Log(myPlayer.GetComponent<Player>().mineral);
                 myPlayer.GetComponentInChildren<Weapon>().ammo = 50f;
             }
         }
@@ -244,13 +239,11 @@ public class Upgrade : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             myPlayer = GameObject.FindGameObjectWithTag("me");
-            Debug.Log(myPlayer.transform.GetChild(2).GetChild(3));
-            Debug.Log(myPlayer.GetComponent<Player>().mineral);
             if (myPlayer.GetComponent<Player>().mineral >= 50f)
             {
                 myPlayer.GetComponent<Player>().mineral -= 50f;
                 //플레이어의 5번째 하위 오브젝트의 3번째 하위 오브젝트. 즉, 미사일 오브젝트의 weapon 컴포넌트의 mAmmo를 2로 만듦.
-                myPlayer.transform.GetChild(2).GetChild(3).GetComponent<Weapon>().mAmmo = 2f;
+                myPlayer.transform.GetChild(3).GetChild(3).GetComponent<Weapon>().mAmmo += 2f;
             }
         }
     }

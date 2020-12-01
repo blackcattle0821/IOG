@@ -31,7 +31,9 @@ public class Weapon : MonoBehaviourPunCallbacks
 
     //플레이어 시점, 미사일 발사 위치, 미사일 프리팹 오브젝트.
     public Camera PlayCam;
+    //미사일 발사 위치
     public Camera MissilePosition;
+    //미사일 프리펩
     public GameObject MissilePrefab;
 
     //기본총 총구 이펙트
@@ -46,6 +48,8 @@ public class Weapon : MonoBehaviourPunCallbacks
     public ParticleSystem ShotgunMuzzleFlash;
     //샷건 피격 이펙트
     public GameObject ShotgunHitEffect;
+    //운석 파괴 이펙트
+    public GameObject AsteroidEffect;
 
     // private float nextTimeToFire = 0f;
     void Update()
@@ -76,8 +80,9 @@ public class Weapon : MonoBehaviourPunCallbacks
             }
         }
         //마우스 우, 미사일
-        if (Input.GetButtonDown("Fire2") && value == 3 && mAmmo > 0)
+        if (Input.GetButton("Fire2") && value == 3 && mAmmo > 0 && Time.time > nextFire)
         {
+            nextFire = Time.time + FireRate;
             photonView.RPC("mShoot", RpcTarget.AllBuffered);
             mAmmo -= 1;
         }
@@ -102,6 +107,13 @@ public class Weapon : MonoBehaviourPunCallbacks
             {
                 Debug.Log(hit.collider.name);
                 target.photonView.RPC("TakeDamage", RpcTarget.AllBuffered, Damage);
+                if (target.health <= 0f && hit.collider.gameObject.CompareTag("Asteroid"))
+                {
+                    GameObject me = GameObject.FindGameObjectWithTag("me");
+                    me.gameObject.GetComponent<Player>().mineral += 100f;
+                    me.gameObject.GetComponent<Player>().score += 100f;
+                    GameObject AEffect = PhotonNetwork.Instantiate(AsteroidEffect.name, hit.transform.position, Quaternion.identity);
+                }
             }
         }
     }
@@ -110,24 +122,34 @@ public class Weapon : MonoBehaviourPunCallbacks
     [PunRPC]
     void SearchEnemy()
     {
-        //총구 이펙트 플레이
-        HomingMuzzleFlash.Play();
-        Collider[] m_cols = Physics.OverlapSphere(transform.position, range, m_layerMask);
-
-        for (int i = 0; i < m_cols.Length; i++)
+        if (photonView.IsMine) //포톤뷰 구별 해줘야 자살 안 함
         {
-           // Debug.Log(m_cols[i].gameObject.tag);
-            Debug.Log(m_cols[i].gameObject.layer);
-            //총탄 피격 이펙트 생성
-            GameObject hitClone = PhotonNetwork.Instantiate(HomingHitEffect.name, m_cols[i].transform.position, Quaternion.identity);
-            Debug.Log(m_cols[i].transform.name);
-            Debug.Log(m_cols[i].transform.tag);
-            Target target = m_cols[i].transform.GetComponent<Target>();
-            if (target != null)
-            {
-                target.photonView.RPC("TakeDamage", RpcTarget.AllBuffered, Damage);
-            }
+            //총구 이펙트 플레이
+            HomingMuzzleFlash.Play();
+            Collider[] m_cols = Physics.OverlapSphere(transform.position, range, m_layerMask);
 
+            for (int i = 0; i < m_cols.Length; i++)
+            {
+                // Debug.Log(m_cols[i].gameObject.tag);
+                Debug.Log(m_cols[i].gameObject.layer);
+                //총탄 피격 이펙트 생성
+                GameObject hitClone = PhotonNetwork.Instantiate(HomingHitEffect.name, m_cols[i].transform.position, Quaternion.identity);
+                Debug.Log(m_cols[i].transform.name);
+                Debug.Log(m_cols[i].transform.tag);
+                Target target = m_cols[i].transform.GetComponent<Target>();
+                if (target != null)
+                {
+                    target.photonView.RPC("TakeDamage", RpcTarget.AllBuffered, Damage);
+                    if (target.health <= 0f && m_cols[i].gameObject.CompareTag("Asteroid"))
+                    {
+                        GameObject me = GameObject.FindGameObjectWithTag("me");
+                        me.gameObject.GetComponent<Player>().mineral += 100f;
+                        me.gameObject.GetComponent<Player>().score += 100f;
+                        GameObject AEffect = PhotonNetwork.Instantiate(AsteroidEffect.name, m_cols[i].transform.position, Quaternion.identity);
+                    }
+                }
+
+            }
         }
     }
 
@@ -154,6 +176,13 @@ public class Weapon : MonoBehaviourPunCallbacks
             if (target != null)
             {
                 target.photonView.RPC("TakeDamage", RpcTarget.AllBuffered, Damage);
+                if (target.health == 0f && hit.collider.gameObject.CompareTag("Asteroid"))
+                {
+                    GameObject me = GameObject.FindGameObjectWithTag("me");
+                    me.gameObject.GetComponent<Player>().mineral += 100f;
+                    me.gameObject.GetComponent<Player>().score += 100f;
+                    GameObject AEffect = PhotonNetwork.Instantiate(AsteroidEffect.name, hit.transform.position, Quaternion.identity);
+                }
             }
         }
     }
@@ -162,13 +191,12 @@ public class Weapon : MonoBehaviourPunCallbacks
     [PunRPC]
     void mShoot()
     {
-        //Quaternion q = Quaternion.LookRotation(new Vector3(90, 90, 90));
-        Quaternion q = Quaternion.identity;
-        q.eulerAngles = new Vector3(90, 90, 0);
-        GameObject MissileObject = PhotonNetwork.Instantiate(MissilePrefab.name, MissilePosition.transform.position, transform.rotation);
-        MissileObject.transform.forward = PlayCam.transform.forward;
-
-        //GameObject MissileObject = Instantiate(MissilePrefab);
+        if (photonView.IsMine)
+        {
+            GameObject MissileObject = PhotonNetwork.Instantiate(MissilePrefab.name, MissilePosition.transform.position, Quaternion.identity);
+            MissileObject.transform.up = PlayCam.transform.forward; //미사일 윗부분이 앞을 향하게
+            MissileObject.tag = "MyMissile";
+        }
 
     }
 }
