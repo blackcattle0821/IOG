@@ -63,8 +63,8 @@ public class Upgrade : MonoBehaviourPunCallbacks
             {
                 myPlayer.GetComponent<Player>().mineral -= myPlayer.GetComponent<Upgrade>().SpaceShipPrice;
                 //HP가 5%상승
-                myPlayer.GetComponent<Target>().health = myPlayer.GetComponent<Target>().health + 10f;      //+10으로 바꿈
-                HP.maxValue += 10;
+                HP.maxValue += 10;  //+10으로 바꿈
+                myPlayer.GetComponent<Target>().health = HP.maxValue;                      
                 HP.value += 10;
                 //구매비용도 상승
                 myPlayer.GetComponent<Upgrade>().SpaceShipPrice += 50f;

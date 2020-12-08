@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4663760750793823230}
   - component: {fileID: 7418800664278691692}
   - component: {fileID: 3670261472921079075}
+  - component: {fileID: 8672958521124826168}
   m_Layer: 0
   m_Name: gun1
   m_TagString: Untagged
@@ -107,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f9bcd554a939b46a047f05fdb2fa4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
-  range: 100
+  Damage: 7.5
+  range: 200
   value: 0
   ammo: 0
   mAmmo: 0
@@ -131,6 +132,11 @@ MonoBehaviour:
     type: 3}
   AsteroidEffect: {fileID: 1121192042590650, guid: 492a76d99dc0c194093d6170b3d38338,
     type: 3}
+  GunSound: {fileID: 0}
+  basicWeaponSound: {fileID: 8300000, guid: c401d00c96b512e488d2e3bf5d111509, type: 3}
+  HomingWeaponSound: {fileID: 8300000, guid: f9eb44b85c96be5429737d4dcadbfa3b, type: 3}
+  ShotgunWeaponSound: {fileID: 8300000, guid: f0bba60dd1813bd40af826dbaa99b983, type: 3}
+  MissileSound: {fileID: 8300000, guid: 281e15cc92254794eaf05caf4d044b76, type: 3}
 --- !u!114 &3670261472921079075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,3 +160,18 @@ MonoBehaviour:
   InstantiationId: 0
   isRuntimeInstantiated: 0
   synchronization: 0
+--- !u!114 &8672958521124826168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663760750793823228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0

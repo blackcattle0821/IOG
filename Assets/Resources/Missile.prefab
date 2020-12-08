@@ -64,6 +64,12 @@ MonoBehaviour:
   ShotgunMuzzleFlash: {fileID: 0}
   ShotgunHitEffect: {fileID: 0}
   AsteroidEffect: {fileID: 0}
+  GunSound: {fileID: 0}
+  basicWeaponSound: {fileID: 0}
+  HomingWeaponSound: {fileID: 0}
+  ShotgunWeaponSound: {fileID: 0}
+  MissileSound: {fileID: 8300000, guid: 281e15cc92254794eaf05caf4d044b76, type: 3}
+  AsteroidExSound: {fileID: 8300000, guid: 5ff823f546b52574a931e1d9b44290a6, type: 3}
 --- !u!114 &5917486712963649774
 MonoBehaviour:
   m_ObjectHideFlags: 0

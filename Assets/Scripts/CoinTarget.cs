@@ -6,6 +6,8 @@ using UnityEngine;
 public class CoinTarget : MonoBehaviourPunCallbacks
 {
     public GameObject CoinEffect;
+
+
     void OnTriggerEnter(Collider other)
     {
         if (photonView.IsMine)
@@ -27,7 +29,8 @@ public class CoinTarget : MonoBehaviourPunCallbacks
 
             }
         }
-        photonView.RPC("Die", RpcTarget.AllBuffered);
+        photonView.RPC("Die", RpcTarget.All);
+
         GameObject Eff = PhotonNetwork.Instantiate(CoinEffect.name, transform.position, Quaternion.identity);
     }
 
