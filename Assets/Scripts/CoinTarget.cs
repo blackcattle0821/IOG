@@ -12,24 +12,26 @@ public class CoinTarget : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (other.transform.parent.gameObject.tag == "me")
+            if (other.transform.parent.transform.parent.gameObject.tag == "me")
             {
 
-                other.transform.parent.gameObject.gameObject.GetComponent<Player>().mineral += 50f;
-                other.transform.parent.gameObject.gameObject.GetComponent<Player>().score += 50f;
+                Debug.Log(other.transform.parent.gameObject.GetComponentInParent<Player>().mineral);
+                other.transform.parent.gameObject.GetComponentInParent<Player>().mineral += 50f;
+                other.transform.parent.gameObject.GetComponentInParent<Player>().score += 50f;
 
             }
         }
         if (!photonView.IsMine)
         {
-            if (other.transform.parent.gameObject.tag == "me")
+            if (other.transform.parent.transform.parent.gameObject.tag == "me")
             {
-                other.transform.parent.gameObject.gameObject.GetComponent<Player>().mineral += 50f;
-                other.transform.parent.gameObject.gameObject.GetComponent<Player>().score += 50f;
+                other.transform.parent.gameObject.GetComponentInParent<Player>().mineral += 50f;
+                other.transform.parent.gameObject.GetComponentInParent<Player>().score += 50f;
 
             }
         }
         photonView.RPC("Die", RpcTarget.All);
+        Debug.Log(other);
 
         GameObject Eff = PhotonNetwork.Instantiate(CoinEffect.name, transform.position, Quaternion.identity);
     }

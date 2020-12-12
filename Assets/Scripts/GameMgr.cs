@@ -67,7 +67,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
     void createPlayer()
     {
-        float pos = UnityEngine.Random.Range(-20.0f, 20.0f);
+        float pos = UnityEngine.Random.Range(-80.0f, 80.0f);
         user = PhotonNetwork.Instantiate(playerprefab.name, new Vector3(pos, 1.0f, pos), Quaternion.identity) as GameObject;
     }
         
@@ -108,14 +108,19 @@ public class GameMgr : MonoBehaviourPunCallbacks
         HP.value = myPlayer.GetComponent<Target>().health;
         HP_text.text = HP.value.ToString();
 
-        myGun = GameObject.FindGameObjectWithTag("gun");
+        
+        //myGun = GameObject.FindGameObjectWithTag("gun");
         if(myPlayer.GetComponent<Player>().equipWeapon == myPlayer.GetComponent<Player>().weapons[0])
         {
             BulletText.text = "∞";
         }
-        else
+        else if(myPlayer.GetComponent<Player>().equipWeapon == myPlayer.GetComponent<Player>().weapons[1])
         {
-            BulletText.text = "50/" + myGun.GetComponent<Weapon>().ammo;
+            BulletText.text = " " + myPlayer.transform.GetChild(2).GetChild(2).GetComponent<Weapon>().ammo + "/50";
+        }
+        else if (myPlayer.GetComponent<Player>().equipWeapon == myPlayer.GetComponent<Player>().weapons[2])
+        {
+            BulletText.text = " " + myPlayer.transform.GetChild(2).GetChild(3).GetComponent<Weapon>().ammo + "/50";
         }
     }
 

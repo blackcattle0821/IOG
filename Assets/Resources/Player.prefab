@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1434615121224622630
 SpriteRenderer:
@@ -118,7 +118,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 734636104341274122}
   - {fileID: 1920083259386254655}
   - {fileID: 8003609273472558581}
   - {fileID: 1920083259386254654}
@@ -424,12 +423,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 734636104341274122}
   - {fileID: 8688376603991409236}
   - {fileID: 2948419645091250963}
   - {fileID: 8430388775971550929}
   - {fileID: 7982033341166056347}
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1920083259386254641
 Camera:
@@ -513,7 +513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1920083259386254753
 MeshFilter:
@@ -686,11 +686,11 @@ RectTransform:
   m_Children:
   - {fileID: 2760106601225345899}
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.014, y: 0.38199997}
+  m_AnchoredPosition: {x: 0.014, y: 1.66}
   m_SizeDelta: {x: 1175.5117, y: 216.83423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2760106602770557581
@@ -809,7 +809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &3114346049805446895
 Camera:
@@ -921,10 +921,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5237659323412126335}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 2.3, y: -0.3, z: 0.2}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 4.6, y: -0.100000024, z: 0.508}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
-  m_Father: {fileID: 1920083259386254652}
+  m_Father: {fileID: 1920083259386254654}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &606842468254220240
@@ -1063,7 +1063,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1920083259386254652}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7622467174698034059
 Camera:
@@ -1290,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 9032296051308666720, guid: 6160f88cfe8d2054999aee9aeef56ee7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9032296051308666720, guid: 6160f88cfe8d2054999aee9aeef56ee7,
         type: 3}
@@ -1453,7 +1453,7 @@ PrefabInstance:
     - target: {fileID: 4663760750793823231, guid: 9e588af7a325adf41810629794594526,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4663760750793823231, guid: 9e588af7a325adf41810629794594526,
         type: 3}
@@ -1670,7 +1670,7 @@ PrefabInstance:
     - target: {fileID: 305432406261111064, guid: bd1118d5eec57334aa28d5bf13234df6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 305432406261111064, guid: bd1118d5eec57334aa28d5bf13234df6,
         type: 3}
@@ -1825,7 +1825,7 @@ PrefabInstance:
     - target: {fileID: 6405862492336336297, guid: 51cf11f5b4974fe42ba6e4dcbc463355,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6405862492336336297, guid: 51cf11f5b4974fe42ba6e4dcbc463355,
         type: 3}

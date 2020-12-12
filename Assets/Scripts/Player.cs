@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,21 +50,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-        //    stream.SendNext(sDown1);
-        //    stream.SendNext(sDown2);
-        //    stream.SendNext(sDown3);
-        //    stream.SendNext(weaponIndex);
             stream.SendNext(tr.position);
             stream.SendNext(tr.rotation);
 
         }
         else
         {
-            //sDown1 = (bool)stream.ReceiveNext();
-            //sDown2 = (bool)stream.ReceiveNext();
-            //sDown3 = (bool)stream.ReceiveNext();
-            //weaponIndex = (int)stream.ReceiveNext();
-
             currPos = (Vector3)stream.ReceiveNext();
             currRot = (Quaternion)stream.ReceiveNext();
         }
@@ -93,33 +85,28 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             health = 100;
             this.gameObject.tag = "me";
             this.gameObject.layer = 12;
-            for (int i = 0; i < this.transform.childCount - 4; i++)
-            {
-                this.transform.GetChild(i).gameObject.tag = "me";
-                this.transform.GetChild(i).gameObject.layer = 12;
-            }
-            //for (int i = 0; i < this.transform.GetChild(3).childCount; i++)
-            //{
-            //    this.transform.GetChild(3).GetChild(i).gameObject.tag = "me";
-            //}
+
+            this.transform.GetChild(2).GetChild(0).gameObject.tag = "me";
+            this.transform.GetChild(2).GetChild(0).gameObject.layer = 12;
+
             //게임매니저에 걸어둔 태그
             gm = GameObject.FindGameObjectWithTag("GameController");
         }
         //내가 아닌 플레이어. 카메라 끊고 태그, 레이어등 변경
         if (!photonView.IsMine)
         {
-            enemy = GameObject.FindGameObjectWithTag("Player");
-            enemy.GetComponent<Player>().PlayCam.enabled = false;
-            enemy.transform.GetChild(6).GetComponent<Camera>().enabled = false;
-            //enemy.transform.GetChild(2).GetChild(0).gameObject.layer = 10;
-            GetComponentInChildren<AudioListener>().enabled = false;
+            Destroy(this.transform.GetChild(2).GetComponent<Camera>());
+            Destroy(this.transform.GetChild(5).GetComponent<Camera>());
             this.gameObject.tag = "Player";
             this.gameObject.layer = 10;
-            for (int i = 0; i < this.transform.childCount - 3; i++)
-            {
-                this.transform.GetChild(i).gameObject.tag = "Player";
-                this.transform.GetChild(i).gameObject.layer = 10;
-            }
+            enemy = GameObject.FindGameObjectWithTag("Player");
+            enemy.GetComponent<Player>().PlayCam.enabled = false;
+            enemy.transform.GetChild(2).GetComponent<Camera>().enabled = false;
+            enemy.transform.GetChild(5).GetComponent<Camera>().enabled = false;
+            GetComponentInChildren<AudioListener>().enabled = false;
+            enemy.transform.GetChild(2).GetChild(0).gameObject.tag = "Player";
+            enemy.transform.GetChild(2).GetChild(0).gameObject.layer = 10;
+
         }
 
         // 방에 들어올 때마다 랜덤하게 아이콘 색이 변함
@@ -128,23 +115,19 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    // Update is called once per frame
-    //void FixedUpdate()
-    //{
-
-    //}
 
     private void Update()
     {
-        //내 캐릭터면 움직임.
-        if (photonView.IsMine)
-        {
-            Move();
-            RotMove();
+        ////내 캐릭터면 움직임.
+        //if (photonView.IsMine)
+        //{
 
-            GetInput();
-            //hitScreen.SetActive(false);
-        }
+        //    //hitScreen.SetActive(false);
+        //}
+        Move();
+        RotMove();
+
+        GetInput();
         photonView.RPC("Swap", RpcTarget.AllBuffered);
     }
 
@@ -265,6 +248,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    void OnDestroy()
+    {
+        if (photonView.IsMine)
+        {
+            gm.GetComponent<GameMgr>().opt.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+        }
+    }
     IEnumerator ShowHitScreen()
     {
         gm.GetComponent<GameMgr>().scr.gameObject.SetActive(true);
