@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using System.Linq;
+using System;
 
 public class GameMgr : MonoBehaviourPunCallbacks
 {
@@ -26,7 +28,6 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public Image gun1;
     public Image gun2;          //상단 총 아이콘 이미지
     public Text HighscoreText;
-    
 
     private GameObject user;
   
@@ -66,7 +67,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
     void createPlayer()
     {
-        float pos = Random.Range(-20.0f, 20.0f);
+        float pos = UnityEngine.Random.Range(-20.0f, 20.0f);
         user = PhotonNetwork.Instantiate(playerprefab.name, new Vector3(pos, 1.0f, pos), Quaternion.identity) as GameObject;
     }
         
@@ -95,6 +96,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("GameoverScene");
+        DontDestroyOnLoad(HighscoreText);
         PhotonNetwork.LeaveRoom();
     }
 
@@ -134,10 +136,12 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
         HighscoreText.text = "점수 랭킹\n\n";
 
-        for(int i=0; i < PhotonNetwork.PlayerList.Length; i++)
+        var scorelist = PhotonNetwork.PlayerList.OrderBy(x => x.CustomProperties["score"]);
+        int i = 1;
+        foreach(var s in scorelist)
         {
-            int j = i + 1;
-            HighscoreText.text += j + ". " + PhotonNetwork.PlayerList[i].NickName + " : " + PhotonNetwork.PlayerList[i].CustomProperties["score"] + "\n";
+            HighscoreText.text += i + ". " + s.NickName + " : " + s.CustomProperties["score"] + "\n";
+            i++;
         }
     }
 
